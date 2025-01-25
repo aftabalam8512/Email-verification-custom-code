@@ -1,3 +1,9 @@
-The 2FA logic is implemented using the authenticate filter. When a user logs in with their email and password, the system checks if the credentials are correct. If the user has the "customer" role, a unique 2FA code is generated, stored in user meta, and sent to their email. The user is then redirected to a verification page (/2fa-verification), where they must enter the received code.
-
-The login redirection is achieved using the login_redirect filter. If there’s an authentication error (e.g., incorrect email or password), the user is redirected to the login page with an error code (error=incorrect_password or error=email_not_found).
+Session Initialization: The code starts a session to store the user’s 2FA code securely.
+Custom 2FA Authentication: When a user logs in, the system checks if the user is a "customer" and triggers a 2FA verification by sending a code to their email.
+2FA Verification: https://example.com/2fa-verification/ A page with the shortcode [two_factor_auth_form] is used to input the 2FA code. The system verifies the code and logs the user in if it's correct.
+Redirection: On login failure, users are redirected to the login page with an error message.
+Clear Session on Logout: The 2FA code is cleared when the user logs out.
+Modify the Redirection URLs:
+Update the redirect URLs as needed in the code:
+Login Redirect: Change wp_redirect(home_url('/my-account/')); to the desired redirect page after successful login.
+Failed Login Redirect: Customize the URL for login errors, usually at wp-login.php.
