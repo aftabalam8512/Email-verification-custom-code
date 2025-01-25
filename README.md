@@ -1,0 +1,3 @@
+The 2FA logic is implemented using the authenticate filter. When a user logs in with their email and password, the system checks if the credentials are correct. If the user has the "customer" role, a unique 2FA code is generated, stored in user meta, and sent to their email. The user is then redirected to a verification page (/2fa-verification), where they must enter the received code.
+
+The login redirection is achieved using the login_redirect filter. If there’s an authentication error (e.g., incorrect email or password), the user is redirected to the login page with an error code (error=incorrect_password or error=email_not_found).
